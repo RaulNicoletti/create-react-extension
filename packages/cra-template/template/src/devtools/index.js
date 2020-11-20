@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import '../index.css';
+import Options from './Devtools';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Options />
   </React.StrictMode>,
-  document.getElementById('popup')
+  document.getElementById('devtools')
 );
