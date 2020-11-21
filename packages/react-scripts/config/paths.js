@@ -45,6 +45,10 @@ const moduleFileExtensions = [
 
 // Resolve file paths in the same order as webpack
 const resolveModule = (resolveFn, filePath) => {
+  if (path.extname(filePath)) {
+    return resolveFn(filePath);
+  }
+
   const extension = moduleFileExtensions.find(extension =>
     fs.existsSync(resolveFn(`${filePath}.${extension}`))
   );
@@ -66,7 +70,8 @@ module.exports = {
   popupHtml: resolveApp('public/popup.html'),
   optionsHtml: resolveApp('public/options.html'),
   devtoolsHtml: resolveApp('public/devtools.html'),
-  popupJs: resolveModule(resolveApp, 'src/index'),
+  manifestJson: resolveApp('public/manifest.json'),
+  popupJs: resolveModule(resolveApp, 'src/popup/index'),
   optionsJs: resolveModule(resolveApp, 'src/options/index'),
   devtoolsJs: resolveModule(resolveApp, 'src/devtools/index'),
   backgroundJs: resolveModule(resolveApp, 'src/background/index'),
@@ -96,7 +101,8 @@ module.exports = {
   popupHtml: resolveApp('public/popup.html'),
   optionsHtml: resolveApp('public/options.html'),
   devtoolsHtml: resolveApp('public/devtools.html'),
-  popupJs: resolveModule(resolveApp, 'src/index'),
+  manifestJson: resolveApp('public/manifest.json'),
+  popupJs: resolveModule(resolveApp, 'src/popup/index'),
   optionsJs: resolveModule(resolveApp, 'src/options/index'),
   devtoolsJs: resolveModule(resolveApp, 'src/devtools/index'),
   backgroundJs: resolveModule(resolveApp, 'src/background/index'),
@@ -139,7 +145,8 @@ if (
     popupHtml: resolveOwn(`${templatePath}/public/popup.html`),
     optionsHtml: resolveOwn(`${templatePath}/public/options.html`),
     devtoolsHtml: resolveOwn(`${templatePath}/public/devtools.html`),
-    popupJs: resolveModule(resolveOwn, `${templatePath}/src/index`),
+    manifestJson: resolveOwn(`${templatePath}/public/manifest.json`),
+    popupJs: resolveModule(resolveOwn, `${templatePath}/src/popup/index`),
     optionsJs: resolveModule(resolveOwn, `${templatePath}/src/options/index`),
     devtoolsJs: resolveModule(resolveOwn, `${templatePath}/src/devtools/index`),
     backgroundJs: resolveModule(
@@ -170,3 +177,6 @@ if (
 // @remove-on-eject-end
 
 module.exports.moduleFileExtensions = moduleFileExtensions;
+module.exports.resolveApp = resolveApp;
+module.exports.resolveModule = resolveModule;
+module.exports.resolveOwn = resolveOwn;

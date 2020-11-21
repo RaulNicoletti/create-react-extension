@@ -160,6 +160,8 @@ module.exports = function (webpackEnv) {
     return loaders;
   };
 
+  // Generates entries dynamically based on the manifest.json
+  const { entry } = require('./utils/entryFactory');
   return {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
@@ -171,13 +173,7 @@ module.exports = function (webpackEnv) {
       : isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
-    entry: {
-      popup: paths.popupJs,
-      options: paths.optionsJs,
-      devtools: paths.devtoolsJs,
-      background: paths.backgroundJs,
-      contentScripts: paths.contentScriptsJs,
-    },
+    entry,
     output: {
       // The build folder.
       path: isEnvProduction ? paths.appBuild : paths.appDev,
@@ -185,7 +181,14 @@ module.exports = function (webpackEnv) {
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: 'static/js/[name].js',
+      //      filename: '[name]',
+      filename: pathData => {
+        if (path.extname(pathData.chunk.name)) {
+          return '[name]';
+        }
+
+        return '[name].js';
+      },
       // TODO: remove this when upgrading to webpack 5
       futureEmitAssets: true,
       // webpack uses `publicPath` to determine where the app is being served from.

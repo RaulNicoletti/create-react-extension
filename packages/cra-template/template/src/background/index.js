@@ -1,1 +1,1 @@
-console.log('hey from the background!!!');
+console.log('Hello from the background!');
