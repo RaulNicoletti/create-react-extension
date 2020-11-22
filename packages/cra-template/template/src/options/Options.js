@@ -7,7 +7,7 @@ function Options() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/options/Options.js</code> and save to aaaaaaaa.
+          Edit <code>src/options/Options.js</code> and save to reload.
         </p>
         <a
           className="App-link"

@@ -1,13 +1,20 @@
 {
   "manifest_version": 2,
-  "name": "Format PR",
+  "name": "React Extension",
   "version": "1.0",
   "permissions": ["<all_urls>"],
+  "icons": {
+    "16": "assets/logo16.png",
+    "48": "assets/logo48.png",
+    "128": "assets/logo128.png"
+  },
   "browser_action": {
     "default_popup": "popup.html"
   },
-  "options_page": "options.html",
-  "devtools_page": "devtools.html",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
   "background": {
     "scripts": ["src/background/index.js"],
     "persistent": false
