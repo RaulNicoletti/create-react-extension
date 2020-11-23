@@ -78,19 +78,9 @@ function prepareUrls(protocol, host, port, pathname = '/') {
 
 function printInstructions(appName, urls, useYarn) {
   console.log();
-  console.log(`You can now view ${chalk.bold(appName)} in the browser.`);
-  console.log();
-
-  if (urls.lanUrlForTerminal) {
-    console.log(
-      `  ${chalk.bold('Local:')}            ${urls.localUrlForTerminal}`
-    );
-    console.log(
-      `  ${chalk.bold('On Your Network:')}  ${urls.lanUrlForTerminal}`
-    );
-  } else {
-    console.log(`  ${urls.localUrlForTerminal}`);
-  }
+  console.log(
+    `You can now load the ${chalk.bold.cyan(appName)} folder in the browser.`
+  );
 
   console.log();
   console.log('Note that the development build is not optimized.');

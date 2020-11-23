@@ -1,15 +1,15 @@
 {
-  "name": "cra-template",
-  "version": "1.1.0",
+  "name": "cre-template",
+  "version": "1.0.0",
   "keywords": [
     "react",
-    "create-react-app",
+    "create-react-extension",
     "template"
   ],
-  "description": "The base template for Create React App.",
+  "description": "The base template for Create React Extension.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/facebook/create-react-app.git",
+    "url": "https://github.com/RaulNicoletti/create-react-extension.git",
     "directory": "packages/cra-template"
   },
   "license": "MIT",
@@ -17,7 +17,7 @@
     "node": ">=10"
   },
   "bugs": {
-    "url": "https://github.com/facebook/create-react-app/issues"
+    "url": "https://github.com/RaulNicoletti/create-react-extension/issues"
   },
   "files": [
     "template",

@@ -92,24 +92,26 @@ checkBrowsers(paths.appPath, isInteractive)
 
     const config = configFactory('development');
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
-    const appName = require(paths.appPackageJson).name;
+    const appName = paths.appDev;
 
     const useTypeScript = fs.existsSync(paths.appTsConfig);
     const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';
     fs.emptyDirSync(paths.appDev);
     copyPublicFolder(paths.appDev);
-    const urls = prepareUrls(
-      protocol,
-      HOST,
-      port,
-      paths.publicUrlOrPath.slice(0, -1)
-    );
+
+    const urls = {
+      ...prepareUrls(protocol, HOST, port, paths.publicUrlOrPath.slice(0, -1)),
+      lanUrlForTerminal: '',
+      localUrlForTerminal: '',
+    };
+
     const devSocket = {
       warnings: warnings =>
         devServer.sockWrite(devServer.sockets, 'warnings', warnings),
       errors: errors =>
         devServer.sockWrite(devServer.sockets, 'errors', errors),
     };
+
     // Create a webpack compiler that is configured with custom messages.
     const compiler = createCompiler({
       appName,

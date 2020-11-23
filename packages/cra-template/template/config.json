@@ -1,13 +1,13 @@
 {
   "pages": [
     {
-      "html": "popup",
-      "js": "src/popup/index"
+      "html": "popup.html",
+      "js": "src/popup/index.js"
     },
     {
-      "html": "options",
-      "js": "src/options/index"
+      "html": "options.html",
+      "js": "src/options/index.js"
     }
   ],
-  "scripts": ["src/background/index", "src/contentScripts/index"]
+  "scripts": ["src/background/index.js", "src/contentScripts/index.js"]
 }

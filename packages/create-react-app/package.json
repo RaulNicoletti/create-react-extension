@@ -23,7 +23,7 @@
     "yarn.lock.cached"
   ],
   "bin": {
-    "create-react-app": "./index.js"
+    "create-react-extension": "./index.js"
   },
   "scripts": {
     "test": "cross-env FORCE_COLOR=true jest"
