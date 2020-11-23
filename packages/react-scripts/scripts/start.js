@@ -99,10 +99,16 @@ checkBrowsers(paths.appPath, isInteractive)
     fs.emptyDirSync(paths.appDev);
     copyPublicFolder(paths.appDev);
 
+    const messages = {
+      lanUrlForTerminal: '',
+      localUrlForTerminal: `Now you can load the ${chalk.cyan(
+        paths.appDev
+      )} folder in the browser.`,
+    };
+
     const urls = {
       ...prepareUrls(protocol, HOST, port, paths.publicUrlOrPath.slice(0, -1)),
-      lanUrlForTerminal: '',
-      localUrlForTerminal: '',
+      ...messages,
     };
 
     const devSocket = {
