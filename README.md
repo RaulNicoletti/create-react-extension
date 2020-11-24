@@ -1,6 +1,7 @@
 # Create React Extension
 
-This is a fork from [create-react-app](https://github.com/facebook/create-react-app)<br>
+<b>This is a fork from [create-react-app](https://github.com/facebook/create-react-app)<br></b>
+
 The reason why I did it was to facilitate the creation of extensions using React.<br>
 I modified the `packages/react-scripts` and `packages/cra-template` to meet the needs of creating an extension.
 
