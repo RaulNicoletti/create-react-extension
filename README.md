@@ -2,22 +2,42 @@
 
 This is a fork from [create-react-app](https://github.com/facebook/create-react-app)<br>
 The reason why I did it was to facilitate the creation of extensions using React.<br>
-I modified the `packages/react-scripts` and `packages/cra-template` to meet the needs of creating an extension.<br>
+I modified the `packages/react-scripts` and `packages/cra-template` to meet the needs of creating an extension.
 
-In reason of that, there is one file that you need to configure: the `config.json`.<br>
+## How to use it
+
+There is one file that you need to configure it: the `config.json`.<br>
 It comes with this format:<br>
-![image](https://user-images.githubusercontent.com/39714682/100052745-4dca2000-2dfd-11eb-9c0b-8a0b6f62d799.png)<br>
-The Webpack create the files in one large bundle unless we specificate more than one entry on it.<br>
-To cover all the possible pages and scripts a extension can have (popup, options, devtool, background, content-scripts and scripts running with tabs.executeScript) I have created this file to generate dynamically the entries so we don't have to worry about.
 
+```json
+{
+  "pages": [
+    {
+      "html": "popup.html",
+      "js": "src/popup/index.js"
+    },
+    {
+      "html": "options.html",
+      "js": "src/options/index.js"
+    }
+  ],
+  "scripts": ["src/background/index.js", "src/contentScripts/index.js"]
+}
+```
+
+The Webpack create the files in one large bundle unless we specificate more than one entry on it.<br>
+To cover all the possible pages and scripts an extension can have (popup, options, devtool, background, content-scripts and scripts running with tabs.executeScript).<br>
+I have created this file to generate dynamically the entries so we don't have to worry about.
+
+### pages
 In the `pages` property you will put the name of the html page to generate in the `html` property and the relative path to the js file in the `js` property.<br>
 The `js` file will be the one you are using the `ReactDOM.render` method.<br>
 You don't need to create the html files, it will be generated automacatically by the webpack.
 
+### scripts
 In the `scripts` property you will put the relative path of all of your scripts that needs to be generated with particular names (background, content-scripts and scripts running with tabs.executeScript).
 
-To facilitate, the paths you will put in the `manifest.json` file will be identical to the `config.json`, because the Webpack was configured to map correctly these things:
-![image](https://user-images.githubusercontent.com/39714682/100054483-e2824d00-2e00-11eb-9eab-910666d5e84c.png)
+To facilitate, the paths you will put in the `manifest.json` file will be identical to the `config.json`, because the Webpack was configured to map correctly these things<br>
 
 ## Quick Overview
 
@@ -74,12 +94,12 @@ my-extension
     ├── logo.svg
     ├── setupTests.js
     ├── background
-        └── index.js
+    |   └── index.js
     ├── contentScripts
-        └── index.js
+    |   └── index.js
     ├── options
-        ├── index.js
-        └── Options.js
+    |   ├── index.js
+    |   └── Options.js
     └── popup
         ├── index.js
         └── Popup.js
