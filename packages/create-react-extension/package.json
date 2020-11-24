@@ -1,0 +1,20 @@
+{
+  "name": "create-react-extension",
+  "version": "1.0.0",
+  "description": "Create React extensions with no build configuration.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RaulNicoletti/create-react-extension.git",
+    "directory": "packages/create-react-extension"
+  },
+  "bin": {
+    "create-react-extension": "./index.js"
+  },
+  "keywords": [
+    "react",
+    "create-react-extension"
+  ],
+  "author": "Raul Nicoletti",
+  "license": "MIT"
+}
