@@ -90,9 +90,10 @@ function getClientEnvironment(publicUrl) {
         // They are used as the connection `hostname`, `pathname` and `port`
         // in webpackHotDevClient. They are used as the `sockHost`, `sockPath`
         // and `sockPort` options in webpack-dev-server.
-        WDS_SOCKET_HOST: process.env.WDS_SOCKET_HOST,
+        WDS_SOCKET_PROTOCOL: process.env.WDS_SOCKET_PROTOCOL || 'ws',
+        WDS_SOCKET_HOST: process.env.WDS_SOCKET_HOST || 'localhost',
         WDS_SOCKET_PATH: process.env.WDS_SOCKET_PATH,
-        WDS_SOCKET_PORT: process.env.WDS_SOCKET_PORT,
+        WDS_SOCKET_PORT: process.env.WDS_SOCKET_PORT || 3000,
         // Whether or not react-refresh is enabled.
         // react-refresh is not 100% stable at this time,
         // which is why it's disabled by default.

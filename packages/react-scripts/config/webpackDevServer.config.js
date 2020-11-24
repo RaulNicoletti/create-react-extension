@@ -98,6 +98,7 @@ module.exports = function (proxy, allowedHost) {
     watchOptions: {
       ignored: ignoredFiles(paths.appSrc),
     },
+    writeToDisk: true,
     https: getHttpsConfig(),
     host,
     overlay: false,

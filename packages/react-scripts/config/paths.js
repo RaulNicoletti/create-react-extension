@@ -45,6 +45,10 @@ const moduleFileExtensions = [
 
 // Resolve file paths in the same order as webpack
 const resolveModule = (resolveFn, filePath) => {
+  if (path.extname(filePath)) {
+    return resolveFn(filePath);
+  }
+
   const extension = moduleFileExtensions.find(extension =>
     fs.existsSync(resolveFn(`${filePath}.${extension}`))
   );
@@ -61,9 +65,11 @@ module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   appBuild: resolveApp('build'),
+  appDev: resolveApp('dev'),
   appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveModule(resolveApp, 'src/index'),
+  indexHtml: resolveApp('public/index.html'),
+  manifestJson: resolveApp('public/manifest.json'),
+  configJson: resolveApp('config.json'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
@@ -84,9 +90,12 @@ module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   appBuild: resolveApp('build'),
+  appDev: resolveApp('dev'),
   appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveModule(resolveApp, 'src/index'),
+  indexHtml: resolveApp('public/index.html'),
+  manifestJson: resolveApp('public/manifest.json'),
+  contentScriptsJs: resolveModule(resolveApp, 'src/contentScripts/index'),
+  configJson: resolveApp('config.json'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
@@ -120,11 +129,13 @@ if (
     dotenv: resolveOwn(`${templatePath}/.env`),
     appPath: resolveApp('.'),
     appBuild: resolveOwn('../../build'),
+    appDev: resolveOwn('../../dev'),
     appPublic: resolveOwn(`${templatePath}/public`),
-    appHtml: resolveOwn(`${templatePath}/public/index.html`),
-    appIndexJs: resolveModule(resolveOwn, `${templatePath}/src/index`),
+    indexHtml: resolveOwn(`${templatePath}/public/index.html`),
+    manifestJson: resolveOwn(`${templatePath}/public/manifest.json`),
     appPackageJson: resolveOwn('package.json'),
     appSrc: resolveOwn(`${templatePath}/src`),
+    configJson: resolveOwn(`${templatePath}/config.json`),
     appTsConfig: resolveOwn(`${templatePath}/tsconfig.json`),
     appJsConfig: resolveOwn(`${templatePath}/jsconfig.json`),
     yarnLockFile: resolveOwn(`${templatePath}/yarn.lock`),
@@ -143,3 +154,5 @@ if (
 // @remove-on-eject-end
 
 module.exports.moduleFileExtensions = moduleFileExtensions;
+module.exports.resolveApp = resolveApp;
+module.exports.resolveModule = resolveModule;
