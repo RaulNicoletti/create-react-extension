@@ -92,7 +92,6 @@ my-extension
 │   └── manifest.json
 └── src
     ├── App.css
-    ├── App.test.js
     ├── index.css
     ├── logo.svg
     ├── setupTests.js
