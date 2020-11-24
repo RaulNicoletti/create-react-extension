@@ -1,6 +1,6 @@
 {
   "name": "@raulnicoletti/react-scripts-extension",
-  "version": "4.0.2",
+  "version": "0.1.0",
   "description": "Configuration and scripts for Create React Extension.",
   "repository": {
     "type": "git",
