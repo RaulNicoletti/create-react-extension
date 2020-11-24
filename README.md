@@ -26,16 +26,18 @@ It comes with this format:<br>
 ```
 
 The Webpack create the files in one large bundle unless we specificate more than one entry on it.<br>
-To cover all the possible pages and scripts an extension can have (popup, options, devtool, background, content-scripts and scripts running with tabs.executeScript).<br>
-I have created this file to generate dynamically the entries so we don't have to worry about.
+To cover all the possible pages and scripts an extension can have I created this file to map and generate dynamically the entries.
 
 ### pages
-In the `pages` property you will put the name of the html page to generate in the `html` property and the relative path to the js file in the `js` property.<br>
-The `js` file will be the one you are using the `ReactDOM.render` method.<br>
-You don't need to create the html files, it will be generated automacatically by the webpack.
+ - <b>html</b>
+   - In then `html` property you will put the name of the html page to generate.
+   - You don't need to create the html files, it will be generated automacatically by the webpack.
+ - <b>js</b>
+   - In the `js` property you will put the relative path to the javascript file.
+   - The `js` file will be the one you are using the `ReactDOM.render` method.<br>
 
 ### scripts
-In the `scripts` property you will put the relative path of all of your scripts that needs to be generated with particular names (background, content-scripts and scripts running with tabs.executeScript).
+ - In the `scripts` property you will put the relative path of all of your scripts that needs to be generated with particular names (`background`, `content-scripts` and scripts running with `tabs.executeScript`).
 
 To facilitate, the paths you will put in the `manifest.json` file will be identical to the `config.json`, because the Webpack was configured to map correctly these things<br>
 
@@ -64,7 +66,7 @@ To create a new extension, run:
 npx create-react-extension my-extension
 ```
 
-or the following to create with typescript:
+or the following to create with the typescript template:
 
 ```sh
 npx create-react-extension my-extension --template typescript
