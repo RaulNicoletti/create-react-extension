@@ -1,6 +1,6 @@
 {
   "name": "create-react-extension",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create React extensions with no build configuration.",
   "main": "index.js",
   "repository": {
