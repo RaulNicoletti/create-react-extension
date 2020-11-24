@@ -28,16 +28,17 @@ It comes with this format:<br>
 The Webpack create the files in one large bundle unless we specificate more than one entry on it.<br>
 To cover all the possible pages and scripts an extension can have I created this file to map and generate dynamically the entries.
 
-### pages
+### `config.json`
+#### pages
  - <b>html</b>
    - In then `html` property you will put the name of the html page to generate.
-   - You don't need to create the html files, it will be generated automacatically by the webpack.
+   - You don't need to create the html files, it will be generated automatically by the webpack.
  - <b>js</b>
    - In the `js` property you will put the relative path to the javascript file.
    - The `js` file will be the one you are using the `ReactDOM.render` method.<br>
 
-### scripts
- - In the `scripts` property you will put the relative path of all of your scripts that needs to be generated with particular names (`background`, `content-scripts` and scripts running with `tabs.executeScript`).
+#### scripts
+ - In the `scripts` property you will put the relative path of all of your scripts that needs to be generated with particular names (`background`, `content-scripts` and scripts running with `tabs.executeScript`).<br>
 
 To facilitate, the paths you will put in the `manifest.json` file will be identical to the `config.json`, because the Webpack was configured to map correctly these things<br>
 
