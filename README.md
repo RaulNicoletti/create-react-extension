@@ -32,7 +32,7 @@ To cover all the possible pages and scripts an extension can have I created this
 ### `config.json`
 #### pages
  - <b>html</b>
-   - In then `html` property you will put the name of the html page to generate. <b>Don't repeat the names.</b>
+   - In then `html` property you will put the name of the html page to generate. <b>Don't</b> repeat the names.
    - You don't need to create the html files, it will be generated automatically by the webpack.
  - <b>js</b>
    - In the `js` property you will put the relative path to the javascript file.
