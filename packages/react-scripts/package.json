@@ -1,10 +1,10 @@
 {
-  "name": "react-scripts",
+  "name": "react-scripts-extension",
   "version": "4.0.1",
-  "description": "Configuration and scripts for Create React App.",
+  "description": "Configuration and scripts for Create React Extension.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/facebook/create-react-app.git",
+    "url": "https://github.com/RaulNicoletti/create-react-extension.git",
     "directory": "packages/react-scripts"
   },
   "license": "MIT",
@@ -12,7 +12,7 @@
     "node": "^10.12.0 || >=12.0.0"
   },
   "bugs": {
-    "url": "https://github.com/facebook/create-react-app/issues"
+    "url": "https://github.com/RaulNicoletti/create-react-extension/issues"
   },
   "files": [
     "bin",
