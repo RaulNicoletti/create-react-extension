@@ -31,19 +31,18 @@ const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
 verifyTypeScriptSetup();
 // @remove-on-eject-end
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const chalk = require('react-dev-utils/chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const clearConsole = require('react-dev-utils/clearConsole');
-const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const {
   choosePort,
   createCompiler,
   prepareProxy,
   prepareUrls,
 } = require('react-dev-utils/WebpackDevServerUtils');
-const openBrowser = require('react-dev-utils/openBrowser');
+const { copyPublicFolder } = require('./utils/copyPublicFolder');
 const semver = require('semver');
 const paths = require('../config/paths');
 const configFactory = require('../config/webpack.config');
@@ -54,11 +53,6 @@ const react = require(require.resolve('react', { paths: [paths.appPath] }));
 const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
-
-// Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
-  process.exit(1);
-}
 
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
@@ -98,22 +92,32 @@ checkBrowsers(paths.appPath, isInteractive)
 
     const config = configFactory('development');
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
-    const appName = require(paths.appPackageJson).name;
+    const appName = paths.appDev;
 
     const useTypeScript = fs.existsSync(paths.appTsConfig);
     const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';
-    const urls = prepareUrls(
-      protocol,
-      HOST,
-      port,
-      paths.publicUrlOrPath.slice(0, -1)
-    );
+    fs.emptyDirSync(paths.appDev);
+    copyPublicFolder(paths.appDev);
+
+    const messages = {
+      lanUrlForTerminal: '',
+      localUrlForTerminal: `Now you can load the ${chalk.cyan(
+        paths.appDev
+      )} folder in the browser.`,
+    };
+
+    const urls = {
+      ...prepareUrls(protocol, HOST, port, paths.publicUrlOrPath.slice(0, -1)),
+      ...messages,
+    };
+
     const devSocket = {
       warnings: warnings =>
         devServer.sockWrite(devServer.sockets, 'warnings', warnings),
       errors: errors =>
         devServer.sockWrite(devServer.sockets, 'errors', errors),
     };
+
     // Create a webpack compiler that is configured with custom messages.
     const compiler = createCompiler({
       appName,
@@ -137,7 +141,9 @@ checkBrowsers(paths.appPath, isInteractive)
       proxyConfig,
       urls.lanUrlForConfig
     );
+
     const devServer = new WebpackDevServer(compiler, serverConfig);
+
     // Launch WebpackDevServer.
     devServer.listen(port, HOST, err => {
       if (err) {
@@ -156,7 +162,6 @@ checkBrowsers(paths.appPath, isInteractive)
       }
 
       console.log(chalk.cyan('Starting the development server...\n'));
-      openBrowser(urls.localUrlForBrowser);
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function (sig) {
