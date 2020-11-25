@@ -1,4 +1,4 @@
-# Create React Extension
+# Create React Extension ![](https://img.shields.io/badge/version-v0.3.0--beta-yellow)
 
 <b>This is a fork from [create-react-app](https://github.com/facebook/create-react-app)<br></b>
 
