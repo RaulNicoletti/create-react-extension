@@ -34,7 +34,7 @@ To cover all the possible pages and scripts an extension can have, I created thi
 
 ### `config.json`
 
-#### pages
+#### views
 
 - <b>html</b>
   - In then `html` property you will put the name of the html page to generate.
@@ -58,7 +58,7 @@ To cover all the possible pages and scripts an extension can have, I created thi
 
 - In the `scripts` property you will put the relative path of all of your scripts that needs to be generated with particular names (`background`, `content-scripts` and scripts running with `tabs.executeScript`).<br>
 
-To facilitate, the paths you will put in the `manifest.json` file will be identical to the `config.json`, because the Webpack was configured to map correctly these things<br>
+To facilitate, the paths you will put in the `manifest.json` file will be identical to the `config.json`, with the exception of the extensions you will put, always put `.js` extensions even if you are working with typescript, because the webpack will transform them all in `.js`<br>
 
 ## Quick Overview
 
