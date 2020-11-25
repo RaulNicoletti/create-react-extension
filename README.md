@@ -49,9 +49,7 @@ To cover all the possible pages and scripts an extension can have, I created thi
       document.getElementById('popup')
     );
     ```
-  ```
   - <b>Don't</b> repeat the names!
-  ```
 - <b>js</b>
   - In the `js` property you will put the relative path to the javascript file.
   - The `js` file will be the one you are using the `ReactDOM.render` method.<br>
