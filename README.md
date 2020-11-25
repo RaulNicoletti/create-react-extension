@@ -109,20 +109,22 @@ my-extension
 │   ├── index.html
 │   └── manifest.json
 └── src
-    ├── App.css
-    ├── index.css
-    ├── logo.svg
-    ├── setupTests.js
-    ├── background
-    |   └── index.js
-    ├── contentScripts
-    |   └── index.js
-    ├── options
-    |   ├── index.js
-    |   └── Options.js
-    └── popup
-        ├── index.js
-        └── Popup.js
+    ├── views
+    |   ├── App.css
+    |   ├── index.css
+    |   ├── logo.svg
+    |   ├── Options
+    |   |   ├── index.jsx
+    |   |   └── Options.jsx
+    |   └── Popup
+    |       ├── index.jsx
+    |       └── Popup.jsx
+    ├── scripts
+    |   ├── background
+    |   |   └── index.js
+    |   └── contentScripts
+    |       └── index.js
+    └── setupTests.js
 ```
 
 Once the installation is done, you can open your project folder:
