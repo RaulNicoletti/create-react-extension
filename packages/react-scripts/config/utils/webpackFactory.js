@@ -31,7 +31,7 @@ if (isEjected) {
 const resolveExtension = filePath => filePath;
 
 const entry = {};
-const pages = [];
+const views = [];
 
 const HTMLconfig = {
   minify: {
@@ -74,7 +74,7 @@ const generateHTML = data => {
   );
 };
 
-config.pages.forEach(value => {
+config.views.forEach(value => {
   let prop = value.html;
   const ext = path.extname(value.html);
 
@@ -86,7 +86,7 @@ config.pages.forEach(value => {
   Reflect.set(entry, prop, val);
 
   const html = generateHTML(value);
-  pages.push(html);
+  views.push(html);
 });
 
 config.scripts.forEach(value => {
@@ -95,4 +95,4 @@ config.scripts.forEach(value => {
   Reflect.set(entry, [prop], val);
 });
 
-module.exports = { entry, pages };
+module.exports = { entry, views };

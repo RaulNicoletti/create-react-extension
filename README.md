@@ -3,7 +3,7 @@
 <b>This is a fork from [create-react-app](https://github.com/facebook/create-react-app)<br></b>
 
 The reason why I did it was to facilitate the creation of extensions using React.<br>
-I modified the `packages/react-scripts` and `packages/cra-template` to meet the needs of creating an extension.
+I modified the `packages/react-scripts` to meet the needs of creating an extension.
 
 ## How to use it
 
@@ -12,34 +12,53 @@ It comes with this format:<br>
 
 ```json
 {
-  "pages": [
+  "views": [
     {
       "html": "popup.html",
-      "js": "src/popup/index.js"
+      "js": "src/views/Popup/index.jsx"
     },
     {
       "html": "options.html",
-      "js": "src/options/index.js"
+      "js": "src/views/Options/index.jsx"
     }
   ],
-  "scripts": ["src/background/index.js", "src/contentScripts/index.js"]
+  "scripts": [
+    "src/scripts/background/index.js",
+    "src/scripts/contentScripts/index.js"
+  ]
 }
 ```
 
-The Webpack create the files in one large bundle unless we specificate more than one entry on it.<br>
-To cover all the possible pages and scripts an extension can have I created this file to map and generate dynamically the entries.
+The Webpack creates the files in one large bundle unless we specificate more than one entry on it.<br>
+To cover all the possible pages and scripts an extension can have, I created this file to map and generate dynamically the entries.
 
 ### `config.json`
+
 #### pages
- - <b>html</b>
-   - In then `html` property you will put the name of the html page to generate. <b>Don't</b> repeat the names.
-   - You don't need to create the html files, it will be generated automatically by the webpack.
- - <b>js</b>
-   - In the `js` property you will put the relative path to the javascript file.
-   - The `js` file will be the one you are using the `ReactDOM.render` method.<br>
+
+- <b>html</b>
+  - In then `html` property you will put the name of the html page to generate.
+  - You don't need to create the html files, it will be generated automatically by the webpack.
+  - The name you choose will be the name that you need to put in your `ReactDOM.render` method, but without the <b>.html</b> extension.
+    Example: If you choose the name `popup.html` your code will be like this:
+    ```js
+    ReactDOM.render(
+      <React.StrictMode>
+        <Popup />
+      </React.StrictMode>,
+      document.getElementById('popup')
+    );
+    ```
+  ```
+  - <b>Don't</b> repeat the names!
+  ```
+- <b>js</b>
+  - In the `js` property you will put the relative path to the javascript file.
+  - The `js` file will be the one you are using the `ReactDOM.render` method.<br>
 
 #### scripts
- - In the `scripts` property you will put the relative path of all of your scripts that needs to be generated with particular names (`background`, `content-scripts` and scripts running with `tabs.executeScript`).<br>
+
+- In the `scripts` property you will put the relative path of all of your scripts that needs to be generated with particular names (`background`, `content-scripts` and scripts running with `tabs.executeScript`).<br>
 
 To facilitate, the paths you will put in the `manifest.json` file will be identical to the `config.json`, because the Webpack was configured to map correctly these things<br>
 

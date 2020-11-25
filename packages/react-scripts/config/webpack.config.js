@@ -160,7 +160,7 @@ module.exports = function (webpackEnv) {
   };
 
   // Generates entries and pages dynamically based on the config.json
-  const { entry, pages } = require('./utils/webpackFactory');
+  const { entry, views } = require('./utils/webpackFactory');
   return {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
@@ -182,11 +182,13 @@ module.exports = function (webpackEnv) {
       // In development, it does not produce real files.
       //      filename: '[name]',
       filename: pathData => {
-        if (path.extname(pathData.chunk.name)) {
-          return '[name]';
+        let name = pathData.chunk.name;
+        const ext = path.extname(name);
+        if (ext) {
+          name = name.replace(ext, '');
         }
 
-        return '[name].js';
+        return `${name}.js`;
       },
       // TODO: remove this when upgrading to webpack 5
       futureEmitAssets: true,
@@ -556,7 +558,7 @@ module.exports = function (webpackEnv) {
     },
 
     plugins: [
-      ...pages,
+      ...views,
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
       new ModuleNotFoundPlugin(paths.appPath),

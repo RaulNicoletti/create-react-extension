@@ -1,0 +1,16 @@
+{
+  "views": [
+    {
+      "html": "popup.html",
+      "js": "src/views/Popup/index.tsx"
+    },
+    {
+      "html": "options.html",
+      "js": "src/views/Options/index.tsx"
+    }
+  ],
+  "scripts": [
+    "src/scripts/background/index.ts",
+    "src/scripts/contentScripts/index.ts"
+  ]
+}

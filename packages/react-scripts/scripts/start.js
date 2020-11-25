@@ -101,9 +101,11 @@ checkBrowsers(paths.appPath, isInteractive)
 
     const messages = {
       lanUrlForTerminal: '',
-      localUrlForTerminal: `Now you can load the ${chalk.cyan(
-        paths.appDev
-      )} folder in the browser.`,
+      localUrlForTerminal: chalk.underline.bold(
+        `Now you can load the ${chalk.cyan(
+          paths.appDev
+        )} folder in the browser.`
+      ),
     };
 
     const urls = {

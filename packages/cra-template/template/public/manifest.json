@@ -16,13 +16,13 @@
     "open_in_tab": true
   },
   "background": {
-    "scripts": ["src/background/index.js"],
+    "scripts": ["src/scripts/background/index.js"],
     "persistent": false
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["src/contentScripts/index.js"]
+      "js": ["src/scripts/contentScripts/index.js"]
     }
   ]
 }

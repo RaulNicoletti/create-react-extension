@@ -94,7 +94,6 @@ module.exports = {
   appPublic: resolveApp('public'),
   indexHtml: resolveApp('public/index.html'),
   manifestJson: resolveApp('public/manifest.json'),
-  contentScriptsJs: resolveModule(resolveApp, 'src/contentScripts/index'),
   configJson: resolveApp('config.json'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),

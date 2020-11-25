@@ -1,13 +1,13 @@
 import logo from '../logo.svg';
 import '../App.css';
 
-function Options() {
+function Popup() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/options/Options.js</code> and save to reload.
+          Edit <code>src/popup/Popup.jsx</code> and save to reload.
         </p>
         <a
           className="App-link"
@@ -22,4 +22,4 @@ function Options() {
   );
 }
 
-export default Options;
+export default Popup;

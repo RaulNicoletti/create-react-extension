@@ -1,16 +1,16 @@
 {
-  "name": "cra-template-typescript",
-  "version": "1.1.1",
+  "name": "@raulnicoletti/cra-template-typescript",
+  "version": "0.2.1",
   "keywords": [
     "react",
-    "create-react-app",
+    "create-react-extension",
     "template",
     "typescript"
   ],
-  "description": "The base TypeScript template for Create React App.",
+  "description": "The base TypeScript template for Create React Extension.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/facebook/create-react-app.git",
+    "url": "https://github.com/RaulNicoletti/create-react-extension.git",
     "directory": "packages/cra-template-typescript"
   },
   "license": "MIT",
@@ -18,7 +18,7 @@
     "node": ">=10"
   },
   "bugs": {
-    "url": "https://github.com/facebook/create-react-app/issues"
+    "url": "https://github.com/RaulNicoletti/create-react-extension/issues"
   },
   "files": [
     "template",
