@@ -45,8 +45,10 @@ const moduleFileExtensions = [
 
 // Resolve file paths in the same order as webpack
 const resolveModule = (resolveFn, filePath) => {
+  // Removes the extensions and let the functions resolve
+  const ext = path.extname(filePath);
   if (path.extname(filePath)) {
-    return resolveFn(filePath);
+    filePath = filePath.replace(ext, '');
   }
 
   const extension = moduleFileExtensions.find(extension =>
