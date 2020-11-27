@@ -1,11 +1,12 @@
 'use strict';
 
-const paths = require('../paths');
 const path = require('path');
-const config = require(paths.configJson);
 const fs = require('fs');
-const { resolveModule, resolveApp } = paths;
+const chalk = require('react-dev-utils/chalk');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const paths = require('../paths');
+
+const { resolveModule, resolveApp } = paths;
 
 let resolveFunction = resolveApp;
 let templatePath = '';
@@ -28,12 +29,17 @@ if (isEjected) {
 }
 // @remove-on-eject-end
 
+// Dummy function just to not mess up with the name of the entries
 const resolveExtension = filePath => filePath;
 
+// Object where will be setted all entries for the webpack
 const entry = {};
+
+// Array where will be pushed all the dynamically generated html files
 const views = [];
 
-const HTMLconfig = {
+// Production config for the HtmlWebpackPlugin
+const Htmlconfig = {
   minify: {
     removeComments: true,
     collapseWhitespace: true,
@@ -48,17 +54,9 @@ const HTMLconfig = {
   },
 };
 
-const generateHTML = data => {
-  const { html } = data;
-  let filename = html;
-  let id = html;
-  const ext = path.extname(html);
-  if (ext) {
-    id = id.replace(ext, '');
-  } else {
-    filename = `${filename}.html`;
-  }
-
+// Function that generates the html with the HtmlWebpackPlugin
+const generateHtml = filename => {
+  const id = filename.replace('.html', '');
   return new HtmlWebpackPlugin(
     Object.assign(
       {},
@@ -66,33 +64,58 @@ const generateHTML = data => {
         inject: true,
         template: paths.indexHtml,
         templateParameters: { id },
-        chunks: [id],
+        chunks: ['bundle'],
         filename,
       },
-      process.env.NODE_ENV === 'production' ? HTMLconfig : undefined
+      process.env.NODE_ENV === 'production' ? Htmlconfig : undefined
     )
   );
 };
 
-config.views.forEach(value => {
-  let prop = value.html;
-  const ext = path.extname(value.html);
+// Create the html's with the HtmlWebpackPlugin based on the id's found in the index.js
+const handleHtml = filename => views.push(generateHtml(filename));
 
-  if (ext) {
-    prop = value.html.replace(ext, '');
+// Set another entries to the webpack
+const handleJs = filename => {
+  const property = resolveModule(resolveExtension, filename);
+  const value = resolveModule(resolveFunction, `${templatePath}${filename}`);
+  Reflect.set(entry, [property], value);
+};
+
+const handleManifest = () => {
+  // Regex to get all the .js and .html files from the manifest.json
+  const regexManifest = /(?<=")([\w\/\.-]+\b(?:(?:j|t)sx?|html))(?=")/g;
+
+  // Read the manifest.json
+  const manifestFile = fs.readFileSync(paths.manifestJson).toString();
+
+  // Execute the regex
+  const files = manifestFile.match(regexManifest);
+
+  // If nothing found, throw an error
+  if (!files) {
+    console.log(
+      `\n${chalk.default.redBright(
+        'No .js or .html files was found in the manifest.json.'
+      )}\n`
+    );
+    process.exit(1);
   }
 
-  const val = resolveModule(resolveFunction, `${templatePath}${value.js}`);
-  Reflect.set(entry, prop, val);
+  // Iterates through the matches found and generate the html and entries necessaries
+  for (const filename of files) {
+    path.extname(filename) === '.html'
+      ? handleHtml(filename)
+      : handleJs(filename);
+  }
+};
 
-  const html = generateHTML(value);
-  views.push(html);
-});
+const init = () => {
+  // Set the bundle entry on webpack based on the index.js
+  Reflect.set(entry, 'bundle', paths.indexJs);
+  handleManifest();
+};
 
-config.scripts.forEach(value => {
-  const prop = resolveModule(resolveExtension, value);
-  const val = resolveModule(resolveFunction, `${templatePath}${value}`);
-  Reflect.set(entry, [prop], val);
-});
+init();
 
 module.exports = { entry, views };

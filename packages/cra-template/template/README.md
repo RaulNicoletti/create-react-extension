@@ -9,8 +9,7 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 You can now load the `dev` folder in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You will see any lint errors in the console.
 
 ### `npm run build`
 

@@ -1,11 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import '../index.css';
-import Options from './Options';
+import logo from '../logo.svg';
+import '../App.css';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Options />
-  </React.StrictMode>,
-  document.getElementById('options')
-);
+function Options() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/options/Options.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default Options;

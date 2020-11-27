@@ -1,4 +1,4 @@
-# Create React Extension ![](https://img.shields.io/badge/version-v0.3.2--beta-yellow)
+# Create React Extension ![](https://img.shields.io/badge/version-0.4.0--beta-yellow)
 
 <b>This is a fork from [create-react-app](https://github.com/facebook/create-react-app)<br></b>
 
@@ -7,58 +7,81 @@ I modified the `packages/react-scripts` to meet the needs of creating an extensi
 
 ## How to use it
 
-There is one file that you need to configure it: the `config.json`.<br>
-It comes with this format:<br>
+The `src/index.js` is the entry point.<br>
+Put all of your `render()` methods there.<br>
+Follow the example that comes with the template:
 
-```json
-{
-  "views": [
-    {
-      "html": "popup.html",
-      "js": "src/views/Popup/index.jsx"
-    },
-    {
-      "html": "options.html",
-      "js": "src/views/Options/index.jsx"
-    }
-  ],
-  "scripts": [
-    "src/scripts/background/index.js",
-    "src/scripts/contentScripts/index.js"
-  ]
+```js
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import Popup from './views/Popup';
+import Options from './views/Options';
+
+// the names here are arbitrary, use whatever you want. Just don't repeat them
+const popup = document.getElementById('popup');
+const options = document.getElementById('options');
+// Error!
+const anotherPopup = document.getElementById('popup');
+
+if (popup) {
+  ReactDOM.render(
+    <React.StrictMode>
+      <Popup />
+    </React.StrictMode>,
+    popup
+  );
+} else if (options) {
+  ReactDOM.render(
+    <React.StrictMode>
+      <Options />
+    </React.StrictMode>,
+    options
+  );
 }
 ```
 
-The Webpack creates the files in one large bundle unless we specificate more than one entry on it.<br>
-To cover all the possible pages and scripts an extension can have, I created this file to map and generate dynamically the entries.
+If you want to remove or add more `.html` pages, do it there.<br>
+`.html` pages will be generated automatically based on your `manifest.json`.<br>
+The names you used to define your id's in `src/index.js`, must be the same as your .html files in the manifest.json.<br>
+The paths you will put in your scripts (background, content-scripts) will be relative to the `src` folder.<br>
+Follow the example that comes with the template and you will not go wrong:<br>
 
-### `config.json`
-
-#### views
-
-- <b>html</b>
-  - In then `html` property you will put the name of the html page to generate.
-  - You don't need to create the html files, it will be generated automatically by the webpack.
-  - The name you choose will be the name that you need to put in your `ReactDOM.render` method, but without the <b>.html</b> extension.
-    Example: If you choose the name `popup.html` your code will be like this:
-    ```js
-    ReactDOM.render(
-      <React.StrictMode>
-        <Popup />
-      </React.StrictMode>,
-      document.getElementById('popup')
-    );
-    ```
-  - <b>Don't</b> repeat the names!
-- <b>js</b>
-  - In the `js` property you will put the relative path to the javascript file.
-  - The `js` file will be the one you are using the `ReactDOM.render` method.<br>
-
-#### scripts
-
-- In the `scripts` property you will put the relative path of all of your scripts that needs to be generated with particular names (`background`, `content-scripts` and scripts running with `tabs.executeScript`).<br>
-
-To facilitate, the paths you will put in the `manifest.json` file will be identical to the `config.json`, with the exception of the extensions you will put, always put `.js` extensions even if you are working with typescript, because the webpack will transform them all in `.js`<br>
+```json
+{
+  "manifest_version": 2,
+  "name": "React Extension",
+  "version": "1.0",
+  "permissions": ["<all_urls>"],
+  "icons": {
+    "16": "assets/logo16.png",
+    "48": "assets/logo48.png",
+    "128": "assets/logo128.png"
+  },
+  "browser_action": {
+    // same name as the id in the src/index.js, plus the .html extension
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    // same name as the id in the src/index.js, plus the .html extension
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    // relative to the src folder
+    "scripts": ["src/scripts/background/index.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      // relative to the src folder
+      "js": ["src/scripts/contentScripts/index.js"]
+    }
+  ]
+}
+```
 
 ## Quick Overview
 
@@ -100,7 +123,6 @@ my-extension
 ├── node_modules
 ├── package.json
 ├── .gitignore
-├── config.json
 ├── public
 │   ├── assets
 |   |   ├── logo16.png
@@ -114,16 +136,15 @@ my-extension
     |   ├── index.css
     |   ├── logo.svg
     |   ├── Options
-    |   |   ├── index.jsx
-    |   |   └── Options.jsx
+    |   |   └── index.js
     |   └── Popup
-    |       ├── index.jsx
-    |       └── Popup.jsx
+    |       └── index.js
     ├── scripts
     |   ├── background
     |   |   └── index.js
     |   └── contentScripts
     |       └── index.js
+    ├── index.js
     └── setupTests.js
 ```
 
