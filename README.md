@@ -48,7 +48,7 @@ The names you used to define your id's in `src/index.js`, must be the same as yo
 The paths you will put in your scripts (background, content-scripts) will be relative to the `src` folder.<br>
 Follow the example that comes with the template and you will not go wrong:<br>
 
-```json
+```js
 {
   "manifest_version": 2,
   "name": "React Extension",
